@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { doc, onSnapshot, updateDoc, increment } from "firebase/firestore";
-import { db } from "../firebase";
 
 const LikeButton = () => {
   const [likes, setLikes] = useState(0);
@@ -9,30 +7,6 @@ const LikeButton = () => {
   const [triggerAnimation, setTriggerAnimation] = useState(false);
   const [animateLikes, setAnimateLikes] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-
-    const storedIsLiked = localStorage.getItem("websiteIsLiked");
-    if (storedIsLiked) {
-      setIsLiked(storedIsLiked === "true");
-    }
-
-    // Listen for realtime updates from Firestore
-    const likeDocRef = doc(db, "likes", "counter");
-    const unsubscribe = onSnapshot(likeDocRef, (docSnap) => {
-      if (docSnap.exists()) {
-        const currentLikes = docSnap.data().likes;
-        setLikes(Math.max(0, currentLikes));
-        setAnimateLikes(true);
-        setTimeout(() => setAnimateLikes(false), 300);
-      } else {
-        console.log("Document does not exist.");
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   const triggerLikeAnimation = () => {
     setTriggerAnimation(true);
@@ -50,11 +24,6 @@ const LikeButton = () => {
     }
 
     try {
-      setIsProcessing(true);
-      const likeDocRef = doc(db, "likes", "counter");
-      await updateDoc(likeDocRef, {
-        likes: increment(1),
-      });
       setIsLiked(true);
       localStorage.setItem("websiteIsLiked", "true");
       triggerLikeAnimation();

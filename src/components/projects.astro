@@ -1,48 +1,28 @@
 ---
-import { Image } from "astro:assets";
-import svgl from "../../public/svgl.png";
-import stockin from "../../public/stockin.png";
-import moviesfordevs from "../../public/moviesfordevs.png";
-import tron from "../../public/tron.png";
+import { getCollection } from "astro:content";
+import type { Project } from "@/types/Project";
+// Get all entries from a collection.
+// Requires the name of the collection as an argument.~
 
-interface Project {
-  title: string;
-  image: ImageMetadata;
-  link: string;
-  preview: string;
-  status: string;
-}
 
-const projects: Project[] = [
-  {
-    title: "MoviesForDevs",
-    image: moviesfordevs as ImageMetadata,
-    link: "https://github.com/gothsec/MoviesForDevs",
-    preview: "https://movies-for-devs.vercel.app",
-    status: "On Development",
-  },
-  {
-    title: "StockIn",
-    image: stockin as ImageMetadata,
-    link: "https://github.com/gothsec/stockin-demo",
-    preview: "https://stockin-demo.vercel.app",
-    status: "On Development",
-  },
-  {
-    title: "Svgl.app",
-    image: svgl as ImageMetadata,
-    link: "https://github.com/pheralb/svgl",
-    preview: "https://svgl.app",
-    status: "Contributor",
-  },
-  {
-    title: "Tron Legacy Web",
-    image: tron as ImageMetadata,
-    link: "https://github.com/Gothsec/Tron-Legacy-web",
-    preview: "https://tron-legacy-web.vercel.app/",
-    status: "Template (not official)",
-  },
-];
+const projectsRaw = await getCollection("projects");
+const projects: Project[] = projectsRaw.map((entry) => {
+  return {
+    title: entry.data.title,
+    slug: entry.data.slug,
+    description: entry.data.description,
+    techStack: entry.data.techStack,
+    role: entry.data.role,
+    type: entry.data.type,
+    startDate: new Date(entry.data.startDate),
+    endDate: entry.data.endDate ? new Date(entry.data.endDate) : undefined,
+    featured: entry.data.featured || false,
+    repoUrl: entry.data.repoUrl,
+    liveUrl: entry.data.liveUrl,
+    images: entry.data.images || [],
+    highlights: entry.data.highlights || [],
+  };
+});
 ---
 
 <section
@@ -58,14 +38,14 @@ const projects: Project[] = [
         projects.map((project) => (
           <div class="group">
             <a
-              href={project.preview}
+              href={project.slug}
               target="_blank"
               rel="noopener noreferrer"
               class="block"
             >
               <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
-                <Image
-                  src={project.image}
+                <img
+                  src="/default-project-image.jpg"
                   alt={project.title}
                   class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -74,13 +54,15 @@ const projects: Project[] = [
                 <div class="flex-grow">
                   <h4 class="text-2xl font-semibold">{project.title}</h4>
                   <span class="py-1 text-sm text-[var(--white-icon)]">
-                    {project.status}
+                    {project.endDate < new Date()
+                      ? `Completed: ${new Date(project.endDate).toLocaleDateString()}`
+                      : `Ongoing since: ${new Date(project.startDate).toLocaleDateString()}`}
                   </span>
                 </div>
                 <div class="flex gap-2 ml-auto">
                   <a
                     target="_blank"
-                    href={project.link}
+                    href={project.repoUrl}
                     aria-label="GitHub"
                     class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                   >
@@ -95,7 +77,7 @@ const projects: Project[] = [
                   </a>
                   <a
                     target="_blank"
-                    href={project.preview}
+                    href={project.liveUrl}
                     aria-label="Preview"
                     class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                   >
