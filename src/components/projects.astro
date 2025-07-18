@@ -1,26 +1,20 @@
 ---
 import { getCollection } from "astro:content";
 import type { Project } from "@/types/Project";
-// Get all entries from a collection.
-// Requires the name of the collection as an argument.~
-
+import { generateRandomBlobs } from "@/lib/Blob";
 
 const projectsRaw = await getCollection("projects");
 const projects: Project[] = projectsRaw.map((entry) => {
   return {
     title: entry.data.title,
-    slug: entry.data.slug,
     description: entry.data.description,
     techStack: entry.data.techStack,
     role: entry.data.role,
     type: entry.data.type,
     startDate: new Date(entry.data.startDate),
     endDate: entry.data.endDate ? new Date(entry.data.endDate) : undefined,
-    featured: entry.data.featured || false,
     repoUrl: entry.data.repoUrl,
     liveUrl: entry.data.liveUrl,
-    images: entry.data.images || [],
-    highlights: entry.data.highlights || [],
   };
 });
 ---
@@ -44,11 +38,23 @@ const projects: Project[] = projectsRaw.map((entry) => {
               class="block"
             >
               <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
-                <img
-                  src="/default-project-image.jpg"
-                  alt={project.title}
-                  class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+                {
+                  <svg
+                    class="w-full h-48 object-cover"
+                    viewBox="0 0 250 250"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {
+                    generateRandomBlobs({ maxBlobs: 2 }).map((b, i) => (
+                      <path
+                        d={b.path}
+                        fill={b.color}
+                        opacity={0.5}
+                        transform={`translate(${b.x % 100*i}, ${b.y % 100*i})`}
+                      />
+                    ))}
+                  </svg>
+                }
               </div>
               <div class="flex items-center px-3">
                 <div class="flex-grow">
@@ -75,21 +81,23 @@ const projects: Project[] = projectsRaw.map((entry) => {
                       <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
                     </svg>
                   </a>
-                  <a
-                    target="_blank"
-                    href={project.liveUrl}
-                    aria-label="Preview"
-                    class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="size-7"
+                  {project.liveUrl && (
+                    <a
+                      target="_blank"
+                      href={project.liveUrl}
+                      aria-label="Live Preview"
+                      class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                     >
-                      <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z" />
-                    </svg>
-                  </a>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-7"
+                      >
+                        <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z" />
+                      </svg>
+                    </a>
+                  )}
                 </div>
               </div>
             </a>
@@ -99,7 +107,7 @@ const projects: Project[] = projectsRaw.map((entry) => {
     </div>
     <a
       target="_blank"
-      href="https://github.com/Gothsec?tab=repositories"
+      href="https://github.com/HenriqueFreitas07?tab=repositories"
       aria-label="GitHub"
       class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-105"
     >

@@ -17,6 +17,4 @@ export interface Project {
   featured?: boolean;
   repoUrl?: string;
   liveUrl?: string;
-  images?: string[];
-  highlights?: string[];
 }
