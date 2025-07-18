@@ -5,8 +5,8 @@ techStack:
   - Python
 type: "academic"
 role: "Python Developer"
-startDate: 2022-03-01
-endDate: 2022-06-30
+startDate: 2024-10-1
+endDate: 2024-12-17
 repoUrl: 
 - "https://github.com/HenriqueFreitas07/Snake"
 ---

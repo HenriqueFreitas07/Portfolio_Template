@@ -26,16 +26,16 @@ export function generateRandomBlobs({
 
   return Array.from({ length: count }).map(() => {
     const { path } = blobshape({
-      size: 300,
-      growth: Math.random() * 10 + 3, // edge/growth control
+      size: 100,
+      growth: (Math.random()) * 4 + 3, // edge/growth control
       edges: Math.floor(Math.random() * 8) + 5,
       seed: null,
     });
     return {
       path,
       color: randomColor(),
-      x: Math.random() * (width - 300),
-      y: Math.random() * (height - 300),
+      x: Math.random() * (width / count),
+      y: Math.random() * (height /count),
     };
   });
 }
