@@ -1,3 +1,5 @@
+import { ImageMetadata } from "astro";
+
 export type ProjectType =
   | "academic"
   | "personal"
@@ -17,4 +19,5 @@ export interface Project {
   featured?: boolean;
   repoUrl?: string;
   liveUrl?: string;
+  image?: ImageMetadata;
 }

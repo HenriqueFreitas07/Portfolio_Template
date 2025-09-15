@@ -5,7 +5,8 @@ techStack:
   - Python
 type: "academic"
 role: "Python Developer"
-startDate: 2024-10-1
+image: ./images/snakeAI.jpeg 
+startDate: 2024-10-01 
 endDate: 2024-12-17
 repoUrl: 
 - "https://github.com/HenriqueFreitas07/Snake"

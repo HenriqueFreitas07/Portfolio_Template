@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from "astro:content";
 import type { Project } from "@/types/Project";
 import { generateRandomBlobs } from "@/lib/Blob";
@@ -15,8 +16,10 @@ const projects: Project[] = projectsRaw.map((entry) => {
     endDate: entry.data.endDate ? new Date(entry.data.endDate) : undefined,
     repoUrl: entry.data.repoUrl,
     liveUrl: entry.data.liveUrl,
+    image:entry.data.image
   };
-});
+})
+
 ---
 
 <section
@@ -30,31 +33,13 @@ const projects: Project[] = projectsRaw.map((entry) => {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
         projects.map((project) => (
-          <div class="group">
+        <div class="group border border-[#5e4491] p-5 rounded-md group-hover:scale-95 transition-all ease-in-out hover:scale-105 "> 
             <a
-              href={project.slug}
+              href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               class="block"
             >
-              <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
-                {
-                  <svg
-                    class="w-full h-48 object-cover"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    {generateRandomBlobs({ maxBlobs: 3 }).map((b, i) => (
-                      <path
-                        d={b.path}
-                        fill={b.color}
-                        opacity={0.5}
-                        transform={`translate(${(b.x % 100) * i}, ${(b.y % 100) * i})`}
-                      />
-                    ))}
-                  </svg>
-                }
-              </div>
               <div class="flex items-center px-3">
                 <div class="flex-grow">
                   <h4 class="text-2xl font-semibold">{project.title}</h4>

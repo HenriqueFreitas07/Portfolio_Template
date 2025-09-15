@@ -14,6 +14,7 @@ const projects = defineCollection({
     endDate: z.date().optional(),
     repoUrl: z.array(z.string().url()),
     liveUrl: z.string().url().optional(),
+    image: z.string().optional()
   }),
 });
 
