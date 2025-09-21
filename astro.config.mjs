@@ -17,6 +17,7 @@ export default defineConfig({
     },
   },
   output: "static",
+  base: '/Portfolio_Template/' ,
   build: {
     inlineStylesheets: "auto",
   },
