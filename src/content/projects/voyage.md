@@ -1,11 +1,11 @@
 ---
-title: "Voyage Traveling Assintant"
+title: "Voyage AI Assistant"
 description: ""
 techStack:
   - Python
   - FastAPI
 type: "academic"
-role: "Feature Engineer & AI developer"
+role: "System Architect"
 startDate: 2025-02-16
 endDate: 2025-06-05
 repoUrl: 
