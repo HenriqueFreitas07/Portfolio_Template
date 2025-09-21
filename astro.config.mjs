@@ -1,11 +1,11 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
-
 import react from "@astrojs/react";
 
+// Detect environment
+const isProd = process.env.NODE_ENV === "production";
 
-// https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), react()],
   vite: {
@@ -17,6 +17,8 @@ export default defineConfig({
     },
   },
   output: "static",
+  // 👇 this makes dev work with "/" and GitHub Pages with "/Portfolio_Template/"
+  base: isProd ? "/Portfolio_Template/" : "/",
   build: {
     inlineStylesheets: "auto",
   },
