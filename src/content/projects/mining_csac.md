@@ -1,5 +1,5 @@
 ---
-title: "DetiCoin Minning"
+title: "DetiCoin Mining"
 description: ""
 techStack:
     - C 
