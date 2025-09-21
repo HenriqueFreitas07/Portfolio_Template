@@ -11,6 +11,7 @@ techStack:
 type: "internship"
 role: "Full-stack Developer"
 startDate: 2022-02-16
+endDate: 2022-06-01
 image: "something cool"
 repoUrl: 
 - "https://github.com/HenriqueFreitas07/BackOffice"

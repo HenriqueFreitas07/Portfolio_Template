@@ -2,6 +2,7 @@
 import LetterGlitch from "../React/LetterGlitch.tsx";
 import LogoWall from "../components/logoWall.astro";
 import SkillsList from "../React/SkillsList.tsx";
+import Stats from "../React/Stats.tsx";
 ---
 
 <section class="text-[var(--white)] mt-12 md:mt-0" id="home">
@@ -18,10 +19,11 @@ import SkillsList from "../React/SkillsList.tsx";
         >
           Software Engineer
         </h1>
-        <p class="text-md md:text-2xl text-[var(--white-icon)]">
-          Where precision meets possibility — creating human-centered
-          <span class="text-[var(--sec)] shiny-sec">human-centered</span>
-          solutions through digital craftsmanship.
+        <p class="text-md text-center md:text-5xl text-[var(--white-icon)]">
+          Driven by 
+          <span class="text-[var(--sec)] shiny-sec">curiosity</span>
+, guided by 
+          <span class="text-[var(--sec)] shiny-sec">purpose</span>
         </p>
       </div>
       <div class="flex justify-start gap-2 pt-3 md:pt-6">
@@ -81,7 +83,6 @@ import SkillsList from "../React/SkillsList.tsx";
     </div>
 
     <LogoWall />
-
     <div class="flex flex-col lg:flex-row items-center gap-8">
       <SkillsList client:load />
       <div

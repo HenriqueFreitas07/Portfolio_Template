@@ -1,8 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from "astro:content";
-import type { Project } from "@/types/Project";
-import { generateRandomBlobs } from "@/lib/Blob";
+import type { Project } from "../types/Project";
 
 const projectsRaw = await getCollection("projects");
 const projects: Project[] = projectsRaw.map((entry) => {
@@ -32,7 +30,7 @@ const projects: Project[] = projectsRaw.map((entry) => {
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        projects.map((project) => (
+        projects.sort((a,b)=> {return b.endDate - a.endDate}).map((project) => (
         <div class="group border border-[#5e4491] p-5 rounded-md group-hover:scale-95 transition-all ease-in-out hover:scale-105 "> 
             <a
               href={project.liveUrl}
