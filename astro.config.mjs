@@ -4,6 +4,7 @@ import tailwind from "@astrojs/tailwind";
 
 import react from "@astrojs/react";
 
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), react()],
@@ -16,7 +17,7 @@ export default defineConfig({
     },
   },
   output: "static",
-  base: "/Portfolio_Template/",
+  base: '/Portfolio_Template/' ,
   build: {
     inlineStylesheets: "auto",
   },
